@@ -1,0 +1,72 @@
+{
+    "author": "martha",
+    "locations": [
+        {
+            "key": 0,
+            "name": "INT. BEDROOM"
+        },
+        {
+            "key": 1,
+            "name": "EXT. BEDROOM"
+        }
+    ],
+    "steps": [
+        {
+            "key": 0,
+            "timestamp": "17:00:34"
+            "stamp": "Step 1"
+        },
+        {
+            "key": 1,
+            "stamp": "Step 2"
+        }
+    ],
+    "title": "Thursday (temp)",
+    "units": [
+        {
+            "active": true,
+            "entities": [
+                "PIN"
+            ],
+            "key": 0,
+            "location": "0",
+            "steps": [
+                0
+            ],
+            "text": "PIN\nWe have no choice but to trust him, and then eat shit when it fucks with our beautiful standards.\n\nPIN waits for a moment with chin pointing skyward.\n\nPIN\nUnless we have a good argument, and like I said all we have are complaints."
+        },
+        {
+            "active": true,
+            "entities": [
+                "PINE",
+                "SHOULD"
+            ],
+            "key": 83,
+            "location": 1,
+            "steps": [
+                0
+            ],
+            "text": "PINE\nthe guy who designed the whole system SHOULD have a better intuition (although 10 does sound random)\n\nDoesn't now."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 1,
+            "location": "0",
+            "steps": [
+                1
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 84,
+            "location": 1,
+            "steps": [
+                1
+            ],
+            "text": ""
+        }
+    ]
+}

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Synctory
+namespace Synctory {
     public class Synctory : MonoBehaviour {
         public void Start () {
         
