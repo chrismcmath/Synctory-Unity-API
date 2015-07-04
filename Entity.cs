@@ -2,6 +2,6 @@
 using System.Collections;
 
 namespace Synctory {
-    public class Synctory : MonoBehaviour {
+    public class Entity : MonoBehaviour {
     }
 }
