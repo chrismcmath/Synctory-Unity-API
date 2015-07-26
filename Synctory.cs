@@ -5,8 +5,6 @@ using Synctory.Utils;
 
 namespace Synctory {
     public class Synctory : MonoBehaviour {
-
-
         public const string ROOT_NAME = "Synctory";
         public const string LOCATIONS_ROOT_NAME = "Locations";
         public const string STEPS_ROOT_NAME = "Steps";

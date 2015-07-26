@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
+using Synctory.Objects;
 using Synctory.Utils;
 
 namespace Synctory.Json {
@@ -18,23 +19,30 @@ namespace Synctory.Json {
                 }, ErrorDelegate);
         }
 
-        private static void LoadLocation(JSONObject location) {
+        private static void LoadLocation(JSONObject locationObj) {
             int key = -1;
             string name = "";
 
-            location.GetField(KEY, delegate(JSONObject o) {
+            locationObj.GetField(KEY, delegate(JSONObject o) {
                     key = (int) o.n;
                 }, ErrorDelegate);
-            location.GetField(KEY_NAME, delegate(JSONObject o) {
+            locationObj.GetField(KEY_NAME, delegate(JSONObject o) {
                     name = o.str;
                 }, ErrorDelegate);
 
-            GameObject go = UnityHelpers.CreateChild(key + name, Synctory.LocationsRoot);
+            GameObject go = UnityHelpers.CreateChild(GetName(key, name), Synctory.LocationsRoot);
+            Location location = go.AddComponent<Location>();
+            location.SetKey(key);
+            location.SetName(name);
         }
 
         private static void ErrorDelegate(string key) {
             Loader.SetError();
             Debug.LogError("[LocationLoader] Couldn't find " + key + " in .synctory");
+        }
+
+        private static string GetName(int key, string name) {
+            return string.Format("{0}_{1}", key, name);
         }
     }
 }

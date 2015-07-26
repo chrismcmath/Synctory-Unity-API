@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-namespace Synctory {
-    public class Location : MonoBehaviour {
+namespace Synctory.Objects {
+    public class Location : SynctoryObject {
         public string Name = "";
 
         public void SetName(string name) {
