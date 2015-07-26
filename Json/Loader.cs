@@ -3,10 +3,9 @@ using System.Collections;
 
 namespace Synctory.Json {
     public static class Loader {
-        public const string KEY_TITLE = "title";
+        public const string KEY = "key";
+
         public const string KEY_AUTHOR = "author";
-        public const string KEY_UNITS = "units";
-        public const string KEY_STEPS = "steps";
 
         private static bool _Error = false;
 
@@ -35,7 +34,9 @@ namespace Synctory.Json {
 
             //LoadMeta(title, author);
 
+            //NOTE: Order imp.
             LocationLoader.LoadLocations(obj);
+            UnitLoader.LoadUnits(obj);
 
             if (_Error) return false;
 

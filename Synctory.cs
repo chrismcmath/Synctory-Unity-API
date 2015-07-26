@@ -7,6 +7,7 @@ namespace Synctory {
     public class Synctory : MonoBehaviour {
         public const string ROOT_NAME = "Synctory";
         public const string LOCATIONS_ROOT_NAME = "Locations";
+        public const string UNITS_ROOT_NAME = "Units";
         public const string STEPS_ROOT_NAME = "Steps";
 
         /* This needs to handle following cases:
@@ -34,6 +35,16 @@ namespace Synctory {
                     _LocationsRoot = UnityHelpers.CreateChild(LOCATIONS_ROOT_NAME, Root);
                 }
                 return _LocationsRoot;
+            }
+        }
+
+        private static GameObject _UnitsRoot = null;
+        public static GameObject UnitsRoot {
+            get {
+                if (_UnitsRoot == null) {
+                    _UnitsRoot = UnityHelpers.CreateChild(UNITS_ROOT_NAME, Root);
+                }
+                return _UnitsRoot;
             }
         }
     }

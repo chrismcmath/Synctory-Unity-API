@@ -8,13 +8,12 @@ namespace Synctory.Json {
     public static class LocationLoader {
         public const string KEY_LOCATIONS = "locations";
 
-        public const string KEY = "key";
         public const string KEY_NAME = "name";
 
         public static void LoadLocations(JSONObject obj) {
             obj.GetField(KEY_LOCATIONS, delegate(JSONObject o) {
-                    foreach (JSONObject location in o.list) {
-                        LoadLocation(location);
+                    foreach (JSONObject locationObj in o.list) {
+                        LoadLocation(locationObj);
                     }
                 }, ErrorDelegate);
         }
@@ -23,7 +22,7 @@ namespace Synctory.Json {
             int key = -1;
             string name = "";
 
-            locationObj.GetField(KEY, delegate(JSONObject o) {
+            locationObj.GetField(Loader.KEY, delegate(JSONObject o) {
                     key = (int) o.n;
                 }, ErrorDelegate);
             locationObj.GetField(KEY_NAME, delegate(JSONObject o) {
@@ -32,8 +31,8 @@ namespace Synctory.Json {
 
             GameObject go = UnityHelpers.CreateChild(GetName(key, name), Synctory.LocationsRoot);
             Location location = go.AddComponent<Location>();
-            location.SetKey(key);
-            location.SetName(name);
+            location.Key = key;
+            location.Name = name;
         }
 
         private static void ErrorDelegate(string key) {
