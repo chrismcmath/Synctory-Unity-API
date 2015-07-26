@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections;
 
+using Synctory.Utils;
+
 namespace Synctory.Json {
     public static class LocationLoader {
         public const string KEY_LOCATIONS = "locations";
@@ -27,7 +29,7 @@ namespace Synctory.Json {
                     name = o.str;
                 }, ErrorDelegate);
 
-            GameObject go = new GameObject(key + name);
+            GameObject go = UnityHelpers.CreateChild(key + name, Synctory.LocationsRoot);
         }
 
         private static void ErrorDelegate(string key) {
