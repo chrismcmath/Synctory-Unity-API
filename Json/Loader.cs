@@ -1,15 +1,18 @@
 using UnityEngine;
 using System.Collections;
 
-namespace Synctory {
+namespace Synctory.Json {
     public static class Loader {
         public const string KEY_TITLE = "title";
         public const string KEY_AUTHOR = "author";
-        public const string KEY_LOCATIONS = "locations";
         public const string KEY_UNITS = "units";
         public const string KEY_STEPS = "steps";
 
-        public static bool Error = false;
+        private static bool _Error = false;
+
+        public static void SetError() {
+            _Error = true;
+        }
 
         public static bool LoadJSON(string jsonText) {
             JSONObject j = new JSONObject(jsonText);
@@ -17,7 +20,7 @@ namespace Synctory {
         }
 
         public static bool Process(JSONObject obj) {
-            Error = false;
+            _Error = false;
 
             string title, author;
 
@@ -28,22 +31,20 @@ namespace Synctory {
                     author = o.str;
                 }, ErrorDelegate);
 
-            if (!Error) {
-                //TODO: 
-                //LoadMeta(title, author);
-            }
+            if (_Error) return false; // current idea is to put these between each bit (to abort early), must be a cleaner way
 
-            obj.GetField(KEY_LOCATIONS, delegate(JSONObject o) {
-                    //TODO: 
-                    //LoadLocations(o);
-                }, ErrorDelegate);
+            //LoadMeta(title, author);
 
-            return Error;
+            LocationLoader.LoadLocations(obj);
+
+            if (_Error) return false;
+
+            return _Error;
         }
 
         private static void ErrorDelegate(string key) {
-            Error = true;
-            Debug.LogError("Couldn't find " + key + " in .synctory");
+            SetError();
+            Debug.LogError("[Loader] Couldn't find " + key + " in .synctory");
         }
     }
 }

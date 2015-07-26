@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEditor;
 
 using Synctory;
+using Synctory.Json;
 
 namespace Synctory.Editor {
     public class ImportWindow : EditorWindow {
