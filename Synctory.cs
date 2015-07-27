@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using Synctory.Objects;
 using Synctory.Utils;
 
 namespace Synctory {
@@ -9,6 +10,7 @@ namespace Synctory {
         public const string LOCATIONS_ROOT_NAME = "Locations";
         public const string UNITS_ROOT_NAME = "Units";
         public const string STEPS_ROOT_NAME = "Steps";
+        public const string ENTITIES_ROOT_NAME = "Entities";
 
         /* This needs to handle following cases:
            1) Loading a file from scratch (nothing exists)
@@ -45,6 +47,16 @@ namespace Synctory {
                     _UnitsRoot = UnityHelpers.CreateChild(UNITS_ROOT_NAME, Root);
                 }
                 return _UnitsRoot;
+            }
+        }
+
+        private static GameObject _EntitiesRoot = null;
+        public static GameObject EntitiesRoot {
+            get {
+                if (_EntitiesRoot == null) {
+                    _EntitiesRoot = UnityHelpers.CreateChild(ENTITIES_ROOT_NAME, Root);
+                }
+                return _EntitiesRoot;
             }
         }
     }

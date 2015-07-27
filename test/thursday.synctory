@@ -60,13 +60,13 @@
         },
         {
             "active": false,
-            "entities": [],
+            "entities": ["PIN"],
             "key": 84,
             "location": 1,
             "steps": [
                 1
             ],
-            "text": ""
+            "text": "PIN walks in."
         }
     ]
 }

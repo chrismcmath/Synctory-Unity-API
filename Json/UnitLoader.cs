@@ -10,10 +10,10 @@ namespace Synctory.Json {
         public const string KEY_UNITS = "units";
 
         public const string KEY_ACTIVE = "active";
-        public const string KEY_ENTITIES = "entities";
         public const string KEY_LOCATION = "location";
-        public const string KEY_STEPS = "steps";
         public const string KEY_TEXT = "text";
+        public const string KEY_ENTITIES = "entities";
+        public const string KEY_STEPS = "steps";
 
         public static void LoadUnits(JSONObject obj) {
             obj.GetField(KEY_UNITS, delegate(JSONObject o) {
@@ -26,10 +26,10 @@ namespace Synctory.Json {
         private static void LoadUnit(JSONObject unitObj) {
             int key = -1;
             bool active = false;
-            List<string> entities = null;
-            List<string> steps = null;
             int location = -1;
             string text = "";
+            List<JSONObject> entities = null;
+            List<string> steps = null;
 
             unitObj.GetField(Loader.KEY, delegate(JSONObject o) {
                     key = (int) o.n;
@@ -37,25 +37,30 @@ namespace Synctory.Json {
             unitObj.GetField(KEY_ACTIVE, delegate(JSONObject o) {
                     active = o.b;
                 }, ErrorDelegate);
-            unitObj.GetField(KEY_ENTITIES, delegate(JSONObject o) {
-                    entities = o.keys;
-                }, ErrorDelegate);
-            unitObj.GetField(KEY_STEPS, delegate(JSONObject o) {
-                    steps = o.keys;
-                }, ErrorDelegate);
             unitObj.GetField(KEY_LOCATION, delegate(JSONObject o) {
                     location = (int) o.n;
                 }, ErrorDelegate);
             unitObj.GetField(KEY_TEXT, delegate(JSONObject o) {
                     text = o.str;
                 }, ErrorDelegate);
+            unitObj.GetField(KEY_ENTITIES, delegate(JSONObject o) {
+                    entities = o.list;
+                }, ErrorDelegate);
+            unitObj.GetField(KEY_STEPS, delegate(JSONObject o) {
+                    steps = o.keys;
+                }, ErrorDelegate);
+
+            EntityLoader.LoadEntities(entities);
+            //TODO: 
+            //StepLoader.LoadSteps(entities);
 
             GameObject go = UnityHelpers.CreateChild(GetName(key), Synctory.UnitsRoot);
             Unit unit = go.AddComponent<Unit>();
             unit.Key = key;
             unit.Active = active;
-            unit.Entities = SynctoryHelpers.GetEntitiesFromKeys(entities);
-            unit.Steps = SynctoryHelpers.GetStepsFromKeys(steps);
+            unit.Entities = SynctoryHelpers.GetEntitiesFromNames(JSONUtils.ConvertToStrings(entities));
+            //TODO: 
+            //unit.Steps = SynctoryHelpers.GetStepsFromKeys(steps);
             unit.Location = SynctoryHelpers.GetLocationFromKey(location);
             unit.Text = text;
         }

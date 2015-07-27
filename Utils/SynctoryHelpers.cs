@@ -22,5 +22,20 @@ namespace Synctory.Utils {
         public static Location GetLocationFromKey(int key) {
             return new Location();
         }
+
+        public static List<Entity> GetEntitiesFromNames(List<string> names) {
+            List<Entity> entities = new List<Entity>();
+            foreach (string name in names) {
+                Entity entity = GetEntityFromName(name);
+                if (entity != null) {
+                    entities.Add(entity);
+                }
+            }
+            return entities;
+        }
+
+        public static Entity GetEntityFromName(string name) {
+            return UnityHelpers.GetSynctoryObjectFromKey<Entity>(name, Synctory.EntitiesRoot);
+        }
     }
 }
