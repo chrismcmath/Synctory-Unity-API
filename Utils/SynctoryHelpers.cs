@@ -8,6 +8,7 @@ using Synctory.Objects;
 namespace Synctory.Utils {
     public static class SynctoryHelpers {
 
+
         /* Top Level */
 
         public static Location GetLocationFromKey(int key) {
@@ -18,7 +19,9 @@ namespace Synctory.Utils {
             return GetSynctoryObjectFromKeys<Step>(keys, Synctory.StepsRoot);
         }
 
-
+        public static Step GetPreviousStep(Step step) {
+            return GetSynctoryObjectFromKey<Step>(step.Key - 1, Synctory.StepsRoot);
+        }
 
         /* The bit that actually does stuff */
 

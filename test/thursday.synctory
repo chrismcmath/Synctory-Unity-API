@@ -13,12 +13,11 @@
     "steps": [
         {
             "key": 0,
-            "timestamp": "17:00:34",
-            "stamp": "Step 1"
+            "stamp": "[19:52:32] Hello world this is the first step"
         },
         {
             "key": 1,
-            "stamp": "Step 2"
+            "stamp": "Hello world this[20:50]is the second step"
         }
     ],
     "title": "Thursday (temp)",

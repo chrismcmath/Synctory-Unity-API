@@ -20,19 +20,19 @@ namespace Synctory.Json {
 
         private static void LoadStep(JSONObject stepObj) {
             int key = -1;
-            string stamp = "";
+            string fullStamp = "";
 
             stepObj.GetField(Loader.KEY, delegate(JSONObject o) {
                     key = (int) o.n;
                 }, ErrorDelegate);
             stepObj.GetField(KEY_STAMP, delegate(JSONObject o) {
-                    stamp = o.str;
+                    fullStamp = o.str;
                 }, ErrorDelegate);
 
-            GameObject go = UnityHelpers.CreateChild(GetName(key, stamp), Synctory.StepsRoot);
+            GameObject go = UnityHelpers.CreateChild(GetName(key, fullStamp), Synctory.StepsRoot);
             Step step = go.AddComponent<Step>();
             step.Key = key;
-            step.Stamp = stamp;
+            StampUtils.LoadFromStamp(fullStamp, step);
         }
 
         private static void ErrorDelegate(string key) {
