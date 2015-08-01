@@ -5,8 +5,6 @@ namespace Synctory.Json {
     public static class Loader {
         public const string KEY = "key";
 
-        public const string KEY_AUTHOR = "author";
-
         private static bool _Error = false;
 
         public static void SetError() {
@@ -21,23 +19,14 @@ namespace Synctory.Json {
         public static bool Process(JSONObject obj) {
             _Error = false;
 
-            string title, author;
-
-            obj.GetField(KEY_AUTHOR, delegate(JSONObject o) {
-                    title = o.str;
-                }, ErrorDelegate);
-            obj.GetField(KEY_AUTHOR, delegate(JSONObject o) {
-                    author = o.str;
-                }, ErrorDelegate);
-
-            if (_Error) return false; // current idea is to put these between each bit (to abort early), must be a cleaner way
-
-            //LoadMeta(title, author);
-
             //NOTE: Order imp.
+            MetadataLoader.LoadMetadata(obj);
+            if (_Error) return false; // current idea is to put these between each bit (to abort early), must be a cleaner way
+            StepLoader.LoadSteps(obj);
+            if (_Error) return false; 
             LocationLoader.LoadLocations(obj);
+            if (_Error) return false; 
             UnitLoader.LoadUnits(obj);
-
             if (_Error) return false;
 
             return _Error;

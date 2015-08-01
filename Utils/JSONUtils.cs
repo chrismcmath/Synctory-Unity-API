@@ -8,6 +8,10 @@ namespace Synctory.Utils {
             return obj.str;
         }
 
+        public static int ConvertToInt(JSONObject obj) {
+            return (int) obj.n;
+        }
+
         public static List<string> ConvertToStrings(List<JSONObject> objs) {
             List<string> strings = new List<string>();
 
@@ -18,6 +22,16 @@ namespace Synctory.Utils {
                 }
             }
             return strings;
+        }
+
+        public static List<int> ConvertToInts(List<JSONObject> objs) {
+            List<int> ints = new List<int>();
+
+            foreach (JSONObject obj in objs) {
+                int key = ConvertToInt(obj);
+                ints.Add(key);
+            }
+            return ints;
         }
     }
 }

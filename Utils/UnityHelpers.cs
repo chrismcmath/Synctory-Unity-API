@@ -25,6 +25,9 @@ namespace Synctory.Utils {
         public static T GetSynctoryObjectFromKey<T> (string key, GameObject parent) {
             return GetSynctoryObjectFromKey<T>(key, parent.transform);
         }
+        //NOTE: 
+        ////NOTE: 
+        /////TODO: totally wrong- should be checking the SyncotryObject components for the key
         public static T GetSynctoryObjectFromKey<T> (string key, Transform parent) {
             Transform target = parent.Find(key);
             if (target == null) { 

@@ -29,7 +29,7 @@ namespace Synctory.Json {
             int location = -1;
             string text = "";
             List<JSONObject> entities = null;
-            List<string> steps = null;
+            List<JSONObject> steps = null;
 
             unitObj.GetField(Loader.KEY, delegate(JSONObject o) {
                     key = (int) o.n;
@@ -47,20 +47,17 @@ namespace Synctory.Json {
                     entities = o.list;
                 }, ErrorDelegate);
             unitObj.GetField(KEY_STEPS, delegate(JSONObject o) {
-                    steps = o.keys;
+                    steps = o.list;
                 }, ErrorDelegate);
 
             EntityLoader.LoadEntities(entities);
-            //TODO: 
-            //StepLoader.LoadSteps(entities);
 
             GameObject go = UnityHelpers.CreateChild(GetName(key), Synctory.UnitsRoot);
             Unit unit = go.AddComponent<Unit>();
             unit.Key = key;
             unit.Active = active;
             unit.Entities = SynctoryHelpers.GetEntitiesFromNames(JSONUtils.ConvertToStrings(entities));
-            //TODO: 
-            //unit.Steps = SynctoryHelpers.GetStepsFromKeys(steps);
+            unit.Steps = SynctoryHelpers.GetStepsFromKeys(JSONUtils.ConvertToInts(steps));
             unit.Location = SynctoryHelpers.GetLocationFromKey(location);
             unit.Text = text;
         }

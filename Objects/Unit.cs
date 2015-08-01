@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 namespace Synctory.Objects {
-    public class Unit : SynctoryObject {
+    public class Unit : UniqueObject {
         [SerializeField]
         private bool _Active = false;
         public bool Active {

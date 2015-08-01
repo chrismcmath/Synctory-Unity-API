@@ -4,7 +4,7 @@ using System.Collections;
 using UnityEngine;
 
 namespace Synctory.Objects {
-    public class Location : SynctoryObject {
+    public class Location : UniqueObject {
         [SerializeField]
         private string _Name = "";
         public string Name {

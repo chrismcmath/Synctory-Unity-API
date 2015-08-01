@@ -25,6 +25,7 @@ namespace Synctory {
             get {
                 if (_Root == null) {
                     _Root = UnityHelpers.CreateChild(ROOT_NAME);
+                    _Root.AddComponent<ScriptMetadata>();
                 }
                 return _Root;
             }
@@ -57,6 +58,16 @@ namespace Synctory {
                     _EntitiesRoot = UnityHelpers.CreateChild(ENTITIES_ROOT_NAME, Root);
                 }
                 return _EntitiesRoot;
+            }
+        }
+
+        private static GameObject _StepsRoot = null;
+        public static GameObject StepsRoot {
+            get {
+                if (_StepsRoot == null) {
+                    _StepsRoot = UnityHelpers.CreateChild(STEPS_ROOT_NAME, Root);
+                }
+                return _StepsRoot;
             }
         }
     }

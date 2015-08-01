@@ -19,7 +19,7 @@ namespace Synctory.Json {
             string name = entityObj.str;
 
             if (SynctoryHelpers.GetEntityFromName(name) != null) {
-                Debug.Log("[EntityLoader] " + name + " already exists");
+                Debug.Log("[INFO] [EntityLoader] " + name + " already exists");
                 return;
             }
 
