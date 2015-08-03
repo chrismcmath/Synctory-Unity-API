@@ -28,6 +28,7 @@ namespace Synctory.Json {
             if (_Error) return false; 
             UnitLoader.LoadUnits(obj);
             if (_Error) return false;
+            LocationLoader.UpdateLocationsWithUnits();
 
             return _Error;
         }

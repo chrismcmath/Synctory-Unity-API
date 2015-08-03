@@ -11,14 +11,22 @@ namespace Synctory.Utils {
 
         //TODO: move to date time utils
         public static string GetTimeStringFromSeconds(float seconds) {
-            TimeSpan ts = TimeSpan.FromSeconds(Mathf.Floor(seconds));
-            return ts.ToString();
+            TimeSpan timeSpan = TimeSpan.FromSeconds(Mathf.Floor(seconds));
+            return timeSpan.ToString();
         }
 
         /* Getters */
 
         public static Location GetLocationFromKey(int key) {
             return GetSynctoryObjectFromKey<Location>(key, Synctory.LocationsRoot);
+        }
+
+        public static List<Location> GetAllLocations() {
+            return GetAllSynctoryObjectsOfType<Location>(Synctory.LocationsRoot);
+        }
+
+        public static List<Unit> GetAllUnits() {
+            return GetAllSynctoryObjectsOfType<Unit>(Synctory.UnitsRoot);
         }
 
         public static List<Step> GetStepsFromKeys(List<int> keys) {
@@ -30,6 +38,21 @@ namespace Synctory.Utils {
         }
 
         /* The bit that actually does stuff */
+
+        public static List<T> GetAllSynctoryObjectsOfType<T>(GameObject root) where T : UniqueObject {
+            List<T> uniqueObjects = new List<T>();
+            foreach (Transform child in root.transform) {
+                UniqueObject uniqueObject = child.GetComponent<UniqueObject>();
+                if (uniqueObject == null) {
+                    Debug.Log("Couldn't find UniqueObject component on " + child.name);
+                } else {
+                    if (uniqueObject.GetType() == typeof(T)) {
+                        uniqueObjects.Add(uniqueObject as T);
+                    }
+                }
+            }
+            return uniqueObjects;
+        }
 
         public static List<T> GetSynctoryObjectFromKeys<T>(List<int> keys, GameObject root) where T : UniqueObject {
             List<T> uniqueObjects = new List<T>();
@@ -57,6 +80,16 @@ namespace Synctory.Utils {
             return default(T);
         }
 
+
+        public static List<Unit> GetUnitsFromLocation(Location location) {
+            List<Unit> units = new List<Unit>();
+            foreach (Unit unit in GetAllUnits()) {
+                if (unit.Location.Key == location.Key) {
+                    units.Add(unit);
+                }
+            }
+            return units;
+        }
 
         /* As Entities are the only Synctory Object that use strings as Keys,
          * keeping this non-generic for now */

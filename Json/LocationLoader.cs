@@ -1,5 +1,8 @@
 using UnityEngine;
+
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 
 using Synctory.Objects;
 using Synctory.Utils;
@@ -16,6 +19,13 @@ namespace Synctory.Json {
                         LoadLocation(locationObj);
                     }
                 }, ErrorDelegate);
+        }
+
+        public static void UpdateLocationsWithUnits() {
+            foreach (Location location in SynctoryHelpers.GetAllLocations()) {
+                List<Unit> units = SynctoryHelpers.GetUnitsFromLocation(location);
+                location.Units = units;
+            }
         }
 
         private static void LoadLocation(JSONObject locationObj) {

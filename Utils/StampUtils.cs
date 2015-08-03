@@ -37,6 +37,7 @@ namespace Synctory.Utils {
 
         public static void LoadStamp(string trimmedStamp, Step step) {
             step.Stamp = trimmedStamp;
+
             Step prevStep = SynctoryHelpers.GetPreviousStep(step);
             if (prevStep != null) {
                 step.Timestamp = prevStep.Timestamp;

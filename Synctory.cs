@@ -2,6 +2,7 @@
 using System.Collections;
 
 using Synctory.Objects;
+using Synctory.Roots;
 using Synctory.Utils;
 
 namespace Synctory {
@@ -17,15 +18,13 @@ namespace Synctory {
            2) Reloading a file (things already exist)
         */
         
-        //TODO: Do a complete rewrite on loading (if have stuff already)
-            // or allow loading over previous stuff? Don't think it's necessary
-
         private static GameObject _Root = null;
         public static GameObject Root {
             get {
-                if (_Root == null) {
+                if (_Root == null && !TryGetRoot<MainRoot>(ref _Root)) {
                     _Root = UnityHelpers.CreateChild(ROOT_NAME);
                     _Root.AddComponent<ScriptMetadata>();
+                    _Root.AddComponent<MainRoot>();
                 }
                 return _Root;
             }
@@ -34,8 +33,9 @@ namespace Synctory {
         private static GameObject _LocationsRoot = null;
         public static GameObject LocationsRoot {
             get {
-                if (_LocationsRoot == null) {
+                if (_LocationsRoot == null && !TryGetRoot<LocationsRoot>(ref _LocationsRoot)) {
                     _LocationsRoot = UnityHelpers.CreateChild(LOCATIONS_ROOT_NAME, Root);
+                    _LocationsRoot.AddComponent<LocationsRoot>();
                 }
                 return _LocationsRoot;
             }
@@ -44,8 +44,9 @@ namespace Synctory {
         private static GameObject _UnitsRoot = null;
         public static GameObject UnitsRoot {
             get {
-                if (_UnitsRoot == null) {
+                if (_UnitsRoot == null && !TryGetRoot<UnitsRoot>(ref _UnitsRoot)) {
                     _UnitsRoot = UnityHelpers.CreateChild(UNITS_ROOT_NAME, Root);
+                    _UnitsRoot.AddComponent<UnitsRoot>();
                 }
                 return _UnitsRoot;
             }
@@ -54,8 +55,9 @@ namespace Synctory {
         private static GameObject _EntitiesRoot = null;
         public static GameObject EntitiesRoot {
             get {
-                if (_EntitiesRoot == null) {
+                if (_EntitiesRoot == null && !TryGetRoot<EntitiesRoot>(ref _EntitiesRoot)) {
                     _EntitiesRoot = UnityHelpers.CreateChild(ENTITIES_ROOT_NAME, Root);
+                    _EntitiesRoot.AddComponent<EntitiesRoot>();
                 }
                 return _EntitiesRoot;
             }
@@ -64,11 +66,21 @@ namespace Synctory {
         private static GameObject _StepsRoot = null;
         public static GameObject StepsRoot {
             get {
-                if (_StepsRoot == null) {
+                if (_StepsRoot == null && !TryGetRoot<StepsRoot>(ref _StepsRoot)) {
                     _StepsRoot = UnityHelpers.CreateChild(STEPS_ROOT_NAME, Root);
+                    _StepsRoot.AddComponent<StepsRoot>();
                 }
                 return _StepsRoot;
             }
+        }
+
+        private static bool TryGetRoot<T>(ref GameObject root) where T : SynctoryRoot {
+            T rootScript = FindObjectOfType<T>();
+            if (rootScript != null) {
+                root = rootScript.gameObject;
+                return true;
+            } 
+            return false;
         }
     }
 }
