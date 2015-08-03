@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System; //delete
 using System.Collections;
 using System.Collections.Generic;
 
@@ -8,8 +9,13 @@ using Synctory.Objects;
 namespace Synctory.Utils {
     public static class SynctoryHelpers {
 
+        //TODO: move to date time utils
+        public static string GetTimeStringFromSeconds(float seconds) {
+            TimeSpan ts = TimeSpan.FromSeconds(Mathf.Floor(seconds));
+            return ts.ToString();
+        }
 
-        /* Top Level */
+        /* Getters */
 
         public static Location GetLocationFromKey(int key) {
             return GetSynctoryObjectFromKey<Location>(key, Synctory.LocationsRoot);

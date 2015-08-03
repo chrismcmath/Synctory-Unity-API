@@ -2,34 +2,28 @@ using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
+using Synctory.Utils;
+
 namespace Synctory.Editor {
     public class SynctoryWindow : EditorWindow {
         public const int TIME_CONTROL_BUTTON_NUMBER = 2;
         public const int TIME_CONTROL_BUTTON_WIDTH = 25;
+        public const int SCRUB_LABEL_WIDTH = 60;
 
         private static readonly Color COLOR_TIME_STYLE = new Color(0.1f, 0.2f, 0.3f);
         private static readonly Color COLOR_TIME_CONTROL_STYLE = Color.magenta;
         private static readonly Color COLOR_TIME_SCRUB_STYLE = Color.green;
+        private static readonly Color COLOR_SCRUB_LABEL_STYLE = Color.red;
 
         private Rect _TimeRect = new Rect();
-
-        private Texture2D GetTextureFromColor (Color color) {
-            Texture2D tex = new Texture2D(1,1);
-            tex.SetPixel(1, 1, color);
-            tex.Apply();
-            return tex;
-        }
+        private float _ScrubVal = 0f;
 
         private GUIStyle _TimeStyle = null;
         public GUIStyle TimeStyle {
             get {
-                Debug.Log("get timestyle");
                 if (_TimeStyle == null) {
                     _TimeStyle = new GUIStyle();
-                    //_TimeStyle.fixedHeight = TIME_CONTROL_BUTTON_WIDTH;
-                    //_TimeStyle.stretchWidth = true;
-                    _TimeStyle.normal.background = GetTextureFromColor(COLOR_TIME_STYLE);
-                    //_TimeStyle.alignment = TextAnchor.MiddleLeft;
+                    _TimeStyle.normal.background = UnityHelpers.GetTextureFromColor(COLOR_TIME_STYLE);
                 }
                 return _TimeStyle;
             }
@@ -42,8 +36,7 @@ namespace Synctory.Editor {
                     _TimeControlsStyle = new GUIStyle();
                     _TimeControlsStyle.fixedWidth = TIME_CONTROL_BUTTON_NUMBER *
                         (TIME_CONTROL_BUTTON_WIDTH + ButtonStyle.margin.left + ButtonStyle.padding.left);
-                    //_TimeControlsStyle.alignment = TextAnchor.MiddleLeft;
-                    _TimeControlsStyle.normal.background = GetTextureFromColor(COLOR_TIME_CONTROL_STYLE);
+                    //_TimeControlsStyle.normal.background = UnityHelpers.GetTextureFromColor(COLOR_TIME_CONTROL_STYLE);
                 }
                 return _TimeControlsStyle;
             }
@@ -56,7 +49,6 @@ namespace Synctory.Editor {
                     _ButtonStyle = new GUIStyle("Button");
                     _ButtonStyle.fixedWidth = TIME_CONTROL_BUTTON_WIDTH;
                     _ButtonStyle.fixedHeight = TIME_CONTROL_BUTTON_WIDTH;
-                    //_ButtonStyle.normal.background = TimeTexture;
                 }
                 return _ButtonStyle;
             }
@@ -67,11 +59,26 @@ namespace Synctory.Editor {
             get {
                 if (_TimeScrubStyle == null) {
                     _TimeScrubStyle = new GUIStyle();
-                    //_TimeScrubStyle.fixedWidth = TIME_CONTROL_BUTTON_WIDTH;
-                    //_TimeScrubStyle.fixedHeight = TIME_CONTROL_BUTTON_WIDTH;
-                    _TimeScrubStyle.normal.background = GetTextureFromColor(COLOR_TIME_SCRUB_STYLE);
+                    _TimeScrubStyle.margin.top = (int) _TimeRect.height / 4;
+                    _TimeScrubStyle.fixedHeight = 0;
+                    //_TimeScrubStyle.normal.background = UnityHelpers.GetTextureFromColor(COLOR_TIME_SCRUB_STYLE);
                 }
                 return _TimeScrubStyle;
+            }
+        }
+
+        private GUIStyle _ScrubLabelStyle = null;
+        public GUIStyle ScrubLabelStyle {
+            get {
+                if (_ScrubLabelStyle == null) {
+                    _ScrubLabelStyle = new GUIStyle();
+                    _ScrubLabelStyle.alignment = TextAnchor.MiddleCenter;
+                    _ScrubLabelStyle.normal.textColor = Color.white;
+                    _ScrubLabelStyle.fixedWidth = SCRUB_LABEL_WIDTH;
+                    _ScrubLabelStyle.fixedHeight = _TimeRect.height;
+                    //_ScrubLabelStyle.normal.background = UnityHelpers.GetTextureFromColor(COLOR_SCRUB_LABEL_STYLE);
+                }
+                return _ScrubLabelStyle;
             }
         }
 
@@ -91,16 +98,12 @@ namespace Synctory.Editor {
                         OnStop();
                     }
                 EditorGUILayout.EndHorizontal();
+
                 Rect scrubRect = EditorGUILayout.BeginHorizontal(TimeScrubStyle);
-                    if (GUILayout.Button("P", ButtonStyle)) {
-                        OnPlay();
-                    }
-                    if (GUILayout.Button("T", ButtonStyle)) {
-                        OnStop();
-                    }
+                    _ScrubVal = GUILayout.HorizontalSlider(_ScrubVal, 0f, 300f);
                 EditorGUILayout.EndHorizontal();
-            //GUILayout.Label("I'm inside");
-            //GUILayout.Label("Ditto");
+
+                GUILayout.Label(SynctoryHelpers.GetTimeStringFromSeconds(_ScrubVal), ScrubLabelStyle);
             EditorGUILayout.EndHorizontal();
         }
 
@@ -118,6 +121,7 @@ namespace Synctory.Editor {
             _TimeControlsStyle = null;
             _ButtonStyle = null;
             _TimeScrubStyle = null;
+            _ScrubLabelStyle = null;
         }
     }
 }

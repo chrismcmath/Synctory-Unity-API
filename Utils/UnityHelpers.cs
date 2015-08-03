@@ -22,13 +22,13 @@ namespace Synctory.Utils {
             return child;
         }
 
-        public static T GetSynctoryObjectFromKey<T> (string key, GameObject parent) {
+        public static T GetSynctoryObjectFromKey<T>(string key, GameObject parent) {
             return GetSynctoryObjectFromKey<T>(key, parent.transform);
         }
         //NOTE: 
         ////NOTE: 
         /////TODO: totally wrong- should be checking the SyncotryObject components for the key
-        public static T GetSynctoryObjectFromKey<T> (string key, Transform parent) {
+        public static T GetSynctoryObjectFromKey<T>(string key, Transform parent) {
             Transform target = parent.Find(key);
             if (target == null) { 
                 Debug.Log(string.Format("[SYNCTORY] Could not find {0} under {1}", key, parent.name));
@@ -37,6 +37,13 @@ namespace Synctory.Utils {
 
             T syncObj = target.GetComponent<T>();
             return syncObj;
+        }
+
+        public static Texture2D GetTextureFromColor(Color color) {
+            Texture2D tex = new Texture2D(1,1);
+            tex.SetPixel(1, 1, color);
+            tex.Apply();
+            return tex;
         }
     }
 }
