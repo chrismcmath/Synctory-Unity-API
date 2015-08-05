@@ -11,7 +11,6 @@ namespace Synctory.Utils {
         }
 
         public static GameObject CreateChild(string name, GameObject parent) {
-            Debug.Log("CreateChild " + parent);
             return CreateChild(name, parent.transform);
         }
         public static GameObject CreateChild(string name, Transform parent) {
