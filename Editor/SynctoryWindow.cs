@@ -106,7 +106,6 @@ namespace Synctory.Editor {
                 if (_InnerLocationsStyle == null) {
                     _InnerLocationsStyle = new GUIStyle();
                     _InnerLocationsStyle.stretchHeight = true;
-                    //_InnerLocationsStyle.fixedHeight = 100;
                     _InnerLocationsStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.green);
                 }
                 return _InnerLocationsStyle;
@@ -134,7 +133,6 @@ namespace Synctory.Editor {
                     _LocationScriptStyle = new GUIStyle();
                     _LocationScriptStyle.fixedWidth = LOCATION_WIDTH - 20;
                     _LocationScriptStyle.alignment = TextAnchor.UpperCenter;
-                    //_LocationScriptStyle.fixedHeight = 100;
                     _LocationScriptStyle.clipping = TextClipping.Overflow;
                     _LocationScriptStyle.wordWrap = true;
                     _LocationScriptStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.white);
@@ -149,12 +147,19 @@ namespace Synctory.Editor {
         }
 
         public void OnGUI() {
-            CacheScrollInput();
+            if (TexturesMissing()) {
+                ResetAllStyles();
+            }
 
             BuildTimeControls();
             BuildLocations();
         }
 
+        private bool TexturesMissing() {
+            return TimeStyle.normal.background == null;
+        }
+
+        /*
         private void CacheScrollInput() {
             if (Event.current != null && Event.current.type == EventType.scrollWheel) {
                 _ScrollThisDraw = Event.current.delta;
@@ -162,6 +167,7 @@ namespace Synctory.Editor {
                 _ScrollThisDraw = Vector2.zero;
             }
         }
+        */
 
         private void BuildTimeControls() {
             GUILayout.Label ("Time Controls", EditorStyles.boldLabel);
@@ -197,7 +203,6 @@ namespace Synctory.Editor {
         }
 
         private void LoadLocation(Location location) {
-            Debug.Log("----------" + location.Key + "----------");
             Rect locRect = EditorGUILayout.BeginVertical(LocationStyle);
                 GUILayout.Label(location.Name, EditorStyles.boldLabel);
                 CheckLocationHasScroller(location.Key);
