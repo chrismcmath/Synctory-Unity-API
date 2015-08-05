@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+
+using UnityEngine;
 
 using Synctory.Objects;
 using Synctory.Roots;
@@ -17,7 +18,6 @@ namespace Synctory {
            1) Loading a file from scratch (nothing exists)
            2) Reloading a file (things already exist)
         */
-        
         private static GameObject _Root = null;
         public static GameObject Root {
             get {
@@ -25,8 +25,19 @@ namespace Synctory {
                     _Root = UnityHelpers.CreateChild(ROOT_NAME);
                     _Root.AddComponent<ScriptMetadata>();
                     _Root.AddComponent<MainRoot>();
+                    _Root.AddComponent<SynctoryClock>();
                 }
                 return _Root;
+            }
+        }
+
+        private static SynctoryClock _Clock = null;
+        public static SynctoryClock Clock {
+            get {
+                if (_Clock == null) {
+                    _Clock = Root.GetComponent<SynctoryClock>();
+                }
+                return _Clock;
             }
         }
 

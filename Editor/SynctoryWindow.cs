@@ -146,6 +146,10 @@ namespace Synctory.Editor {
             EditorWindow.GetWindow(typeof(SynctoryWindow), false, "Synctory");
         }
 
+        public void OnInspectorUpdate() {
+            Repaint();
+        }
+
         public void OnGUI() {
             if (TexturesMissing()) {
                 ResetAllStyles();
@@ -182,7 +186,7 @@ namespace Synctory.Editor {
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal(TimeScrubStyle);
-                    _ScrubVal = GUILayout.HorizontalSlider(_ScrubVal, 0f, 300f);
+                    _ScrubVal = GUILayout.HorizontalSlider((float) Synctory.Clock.SynctoryTime.TotalSeconds, 0f, 300f);
                 EditorGUILayout.EndHorizontal();
 
                 GUILayout.Label(SynctoryHelpers.GetTimeStringFromSeconds(_ScrubVal), ScrubLabelStyle);
