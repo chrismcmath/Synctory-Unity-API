@@ -16,23 +16,11 @@ namespace Synctory.Editor {
         public const int SCRUB_LABEL_WIDTH = 60;
         public const int LOCATION_WIDTH = 200;
 
-        private static readonly Color COLOR_TIME_STYLE = new Color(0.1f, 0.2f, 0.3f);
-        private static readonly Color COLOR_TIME_CONTROL_STYLE = Color.magenta;
-        private static readonly Color COLOR_TIME_SCRUB_STYLE = Color.green;
-        private static readonly Color COLOR_SCRUB_LABEL_STYLE = Color.red;
-
-        private Rect _TimeRect = new Rect();
-        private float _ScrubVal = 0f;
-        private Vector2 _LocationScrollLocation = Vector2.zero;
-        private Vector2 _ScrollThisDraw = Vector2.zero;
-        private Dictionary<int, Vector2> _LocationScrollLocations = new Dictionary<int, Vector2>();
-
         private GUIStyle _TimeStyle = null;
         public GUIStyle TimeStyle {
             get {
                 if (_TimeStyle == null) {
                     _TimeStyle = new GUIStyle();
-                    _TimeStyle.normal.background = UnityHelpers.GetTextureFromColor(COLOR_TIME_STYLE);
                 }
                 return _TimeStyle;
             }
@@ -106,7 +94,6 @@ namespace Synctory.Editor {
                 if (_InnerLocationsStyle == null) {
                     _InnerLocationsStyle = new GUIStyle();
                     _InnerLocationsStyle.stretchHeight = true;
-                    _InnerLocationsStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.green);
                 }
                 return _InnerLocationsStyle;
             }
@@ -120,9 +107,24 @@ namespace Synctory.Editor {
                     _LocationStyle.fixedWidth = LOCATION_WIDTH;
                     _LocationStyle.stretchHeight = true;
                     _LocationStyle.margin = new RectOffset(10, 10, 10, 10);
-                    _LocationStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.gray);
+                    _LocationStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.white);
                 }
                 return _LocationStyle;
+            }
+        }
+
+        private GUIStyle _LocationHeaderStyle = null;
+        public GUIStyle LocationHeaderStyle {
+            get {
+                if (_LocationHeaderStyle == null) {
+                    _LocationHeaderStyle = new GUIStyle();
+                    _LocationHeaderStyle.alignment = TextAnchor.UpperLeft;
+                    _LocationHeaderStyle.fontSize = 12;
+                    _LocationHeaderStyle.fontStyle = FontStyle.Bold;
+                    _LocationHeaderStyle.normal.textColor = Color.gray;
+                    _LocationHeaderStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.black);
+                }
+                return _LocationHeaderStyle;
             }
         }
 
@@ -131,15 +133,25 @@ namespace Synctory.Editor {
             get {
                 if (_LocationScriptStyle == null) {
                     _LocationScriptStyle = new GUIStyle();
+                    _LocationScriptStyle.font = Resources.Load("Fonts/Courier") as Font;
                     _LocationScriptStyle.fixedWidth = LOCATION_WIDTH - 20;
                     _LocationScriptStyle.alignment = TextAnchor.UpperCenter;
                     _LocationScriptStyle.clipping = TextClipping.Overflow;
+                    _LocationScriptStyle.normal.textColor = Color.black;
+                    _LocationScriptStyle.fontStyle = FontStyle.Bold;
                     _LocationScriptStyle.wordWrap = true;
-                    _LocationScriptStyle.normal.background = UnityHelpers.GetTextureFromColor(Color.white);
                 }
                 return _LocationScriptStyle;
             }
         }
+
+        private Rect _TimeRect = new Rect();
+
+        private float _ScrubVal = 0f;
+
+        private Vector2 _LocationScrollLocation = Vector2.zero;
+
+        private Dictionary<int, Vector2> _LocationScrollLocations = new Dictionary<int, Vector2>();
 
         [MenuItem("Synctory/Show Synctory Window")]
         public static void ShowWindow() {
@@ -147,6 +159,7 @@ namespace Synctory.Editor {
         }
 
         public void OnInspectorUpdate() {
+            _ScrubVal = (float) Synctory.Clock.SynctoryTime.TotalSeconds;
             Repaint();
         }
 
@@ -157,21 +170,12 @@ namespace Synctory.Editor {
 
             BuildTimeControls();
             BuildLocations();
+            Synctory.Clock.SynctoryTime = TimeSpan.FromSeconds(_ScrubVal);
         }
 
         private bool TexturesMissing() {
             return TimeStyle.normal.background == null;
         }
-
-        /*
-        private void CacheScrollInput() {
-            if (Event.current != null && Event.current.type == EventType.scrollWheel) {
-                _ScrollThisDraw = Event.current.delta;
-            } else {
-                _ScrollThisDraw = Vector2.zero;
-            }
-        }
-        */
 
         private void BuildTimeControls() {
             GUILayout.Label ("Time Controls", EditorStyles.boldLabel);
@@ -186,7 +190,7 @@ namespace Synctory.Editor {
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal(TimeScrubStyle);
-                    _ScrubVal = GUILayout.HorizontalSlider((float) Synctory.Clock.SynctoryTime.TotalSeconds, 0f, 300f);
+                    _ScrubVal = GUILayout.HorizontalSlider(_ScrubVal, 0f, (float) SynctoryHelpers.GetLastTimestamp().TotalSeconds);
                 EditorGUILayout.EndHorizontal();
 
                 GUILayout.Label(SynctoryHelpers.GetTimeStringFromSeconds(_ScrubVal), ScrubLabelStyle);
@@ -194,7 +198,6 @@ namespace Synctory.Editor {
         }
 
         private void BuildLocations() {
-            //GUILayout.Label("Locations", EditorStyles.boldLabel);
             EditorGUILayout.BeginHorizontal(LocationsStyle);
                 _LocationScrollLocation = GUILayout.BeginScrollView(_LocationScrollLocation, true, false);
                     EditorGUILayout.BeginHorizontal(InnerLocationsStyle);
@@ -207,36 +210,21 @@ namespace Synctory.Editor {
         }
 
         private void LoadLocation(Location location) {
-            Rect locRect = EditorGUILayout.BeginVertical(LocationStyle);
-                GUILayout.Label(location.Name, EditorStyles.boldLabel);
+            Rect locationRect = EditorGUILayout.BeginVertical(LocationStyle);
+
+                GUIStyle locationHeaderStyle = LocationHeaderStyle;
+                locationHeaderStyle.fixedWidth = location.CurrentUnitProgression * locationRect.width;
+                GUILayout.Label(location.Name, locationHeaderStyle);
+
                 CheckLocationHasScroller(location.Key);
                 _LocationScrollLocations[location.Key] = GUILayout.BeginScrollView(_LocationScrollLocations[location.Key], false, true);
-                //Debug.Log("building scroll with pos: " + _LocationScrollLocations[location.Key]);
-                //EditorGUILayout.BeginScrollView(_LocationScrollLocations[location.Key], new GUIStyle(), new GUIStyle());
-                //Debug.Log("after building scroll, pos: " + _LocationScrollLocations[location.Key]);
-                    GUILayout.TextArea("The start asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf The middle asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf  asdf the end", LocationScriptStyle);
+                if (location.CurrentUnit != null) {
+                    GUILayout.TextArea(location.CurrentUnit.Text, LocationScriptStyle);
+                } else {
+                    GUILayout.TextArea("", LocationScriptStyle);
+                }
                 EditorGUILayout.EndScrollView();
             EditorGUILayout.EndVertical();
-
-
-
-            /*
-            Vector2 newScroll = _LocationScrollLocations[location.Key] + new Vector2(0f, _ScrollThisDraw.y);
-            Debug.Log("set scroll to " + newScroll);
-            _LocationScrollLocations[location.Key] = newScroll;
-            //Debug.Log("current scroll: " + _LocationScrollLocations[location.Key]);
-            //_LocationScrollLocations[location.Key] = new Vector2(10,10);
-            */
-        }
-
-        private void Scroll(Vector2 scroll, Vector2 delta, bool scrollHorizontal, bool scrollVertical) {
-            Debug.Log("scroll " + delta);
-            /*
-            float dt = Time.deltaTime / touch.deltaTime;
-            if (dt == 0 || float.IsNaN(dt) || float.IsInfinity(dt)) {
-                dt = 1.0f;
-            }
-            */
         }
 
         private void CheckLocationHasScroller(int key) {
@@ -263,6 +251,7 @@ namespace Synctory.Editor {
             _LocationsStyle = null;
             _InnerLocationsStyle = null;
             _LocationStyle = null;
+            _LocationHeaderStyle = null;
             _LocationScriptStyle = null;
         }
     }

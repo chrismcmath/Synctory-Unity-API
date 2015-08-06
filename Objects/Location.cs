@@ -14,10 +14,51 @@ namespace Synctory.Objects {
         }
 
         [SerializeField]
-        private List<Unit> _Units = new List<Unit>();
-        public  List<Unit> Units {
-            get { return _Units; }
-            set { _Units = value; }
+        private List<Unit> _CachedUnits = new List<Unit>();
+        public  List<Unit> CachedUnits {
+            get { return _CachedUnits; }
+            set { _CachedUnits = value; }
+        }
+
+        [SerializeField]
+        private Unit _CurrentUnit = null;
+        public  Unit CurrentUnit {
+            get { return _CurrentUnit; }
+            set { _CurrentUnit = value; }
+        }
+
+        [SerializeField]
+        private float _CurrentUnitProgression = 0f;
+        public  float CurrentUnitProgression {
+            get { return _CurrentUnitProgression; }
+            set { _CurrentUnitProgression = value; }
+        }
+
+        //NOTE: Units MUST be in order
+        ////TODO: also need to check steps are all sequetial (in timestamps) too
+        public void UpdateTime(TimeSpan time) {
+            if (CachedUnits.Count == 0) {
+                return;
+            }
+
+            TimeSpan unitEnd = TimeSpan.MaxValue;
+            Unit candidateUnit = null;
+
+            foreach (Unit unit in CachedUnits) {
+                if (time >= unit.StartTime) {
+                    candidateUnit = unit;
+                } else {
+                    unitEnd = unit.StartTime;
+                    break;
+                }
+            }
+
+            CurrentUnit = candidateUnit;
+
+            float totalTicks = unitEnd.Ticks - CurrentUnit.StartTime.Ticks;
+            float ticksSinceStart = time.Ticks - CurrentUnit.StartTime.Ticks;
+
+            CurrentUnitProgression = ticksSinceStart / totalTicks;
         }
     }
 }

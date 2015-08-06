@@ -1,6 +1,8 @@
-﻿using UnityEngine;
+﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+
+using UnityEngine;
 
 namespace Synctory.Objects {
     public class Unit : UniqueObject {
@@ -36,7 +38,17 @@ namespace Synctory.Objects {
         private string _Text = "";
         public string Text {
             get { return _Text; }
-            set { _Text = value; }
+            set { _Text = value.Replace("\\n", "\r\n"); }
+        }
+
+        public TimeSpan StartTime {
+            get {
+                if (Steps.Count > 0) {
+                    return Steps[0].Timestamp;
+                } else {
+                    return new TimeSpan();
+                }
+            }
         }
     }
 }

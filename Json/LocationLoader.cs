@@ -24,7 +24,7 @@ namespace Synctory.Json {
         public static void UpdateLocationsWithUnits() {
             foreach (Location location in SynctoryHelpers.GetAllLocations()) {
                 List<Unit> units = SynctoryHelpers.GetUnitsFromLocation(location);
-                location.Units = units;
+                location.CachedUnits = units;
             }
         }
 

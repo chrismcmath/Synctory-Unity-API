@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 using UnityEngine;
 
@@ -82,6 +83,12 @@ namespace Synctory {
                     _StepsRoot.AddComponent<StepsRoot>();
                 }
                 return _StepsRoot;
+            }
+        }
+
+        public static void UpdateTime(TimeSpan time) {
+            foreach (Location location in SynctoryHelpers.GetAllLocations()) {
+                location.UpdateTime(time);
             }
         }
 

@@ -15,6 +15,16 @@ namespace Synctory.Utils {
             return timeSpan.ToString();
         }
 
+        public static TimeSpan GetLastTimestamp() {
+            List<Step> allSteps = GetAllSteps();
+            if (allSteps.Count > 0) {
+                Step lastStep = allSteps[allSteps.Count - 1];
+                return lastStep.Timestamp;
+            } else {
+                return new TimeSpan();
+            }
+        }
+
         /* Getters */
 
         public static Location GetLocationFromKey(int key) {
@@ -23,6 +33,10 @@ namespace Synctory.Utils {
 
         public static List<Location> GetAllLocations() {
             return GetAllSynctoryObjectsOfType<Location>(Synctory.LocationsRoot);
+        }
+
+        public static List<Step> GetAllSteps() {
+            return GetAllSynctoryObjectsOfType<Step>(Synctory.StepsRoot);
         }
 
         public static List<Unit> GetAllUnits() {
