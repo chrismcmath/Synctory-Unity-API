@@ -56,7 +56,6 @@ namespace Synctory.Utils {
         //NOTE: Make timestamp confirm to hh:mm:ss format
         private static string FormatTimestamp(string timestamp) {
             while (timestamp.Count(c => c == DENOMINATION_DIVIDER) < 2) {
-                Debug.Log(" ?  ?  ?  ?  ?  ?  ?  ?  ?  ? added once");
                 timestamp = string.Format("{0}{1}", HOUR_PREFIX, timestamp);
             }
             return timestamp;

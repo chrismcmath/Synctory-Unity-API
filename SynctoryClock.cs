@@ -29,12 +29,17 @@ namespace Synctory {
             }
         }
 
+        public float TotalSeconds {
+            get {
+                return (float) SynctoryTime.TotalSeconds;
+            }
+        }
+
         private bool _TimeChanged = true;
         
         public void Update() {
-            if (_State == SynctoryState.PLAYING) {
-                _SynctoryTime += TimeSpan.FromSeconds(Time.deltaTime);
-                _TimeChanged = true;
+            if (IsPlaying()) {
+                SynctoryTime += TimeSpan.FromSeconds(Time.deltaTime);
             }
 
             CheckTimeChanged();
@@ -45,6 +50,22 @@ namespace Synctory {
                 Synctory.UpdateTime(SynctoryTime);
                 _TimeChanged = false;
             }
+        }
+
+        public void Play() {
+            State = SynctoryState.PLAYING;
+        }
+
+        public void Pause() {
+            State = SynctoryState.PAUSED;
+        }
+
+        public void Reset() {
+            SynctoryTime = new TimeSpan();
+        }
+
+        public bool IsPlaying() {
+            return State == SynctoryState.PLAYING;
         }
     }
 }
