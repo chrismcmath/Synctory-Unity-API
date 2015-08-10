@@ -159,8 +159,6 @@ namespace Synctory.Editor {
         }
 
         public void OnInspectorUpdate() {
-            _ScrubVal = (float) Synctory.Clock.SynctoryTime.TotalSeconds;
-
             //NOTE: Force an update when not in play mode
             if (!EditorApplication.isPlaying) {
                 Synctory.Clock.CheckTimeChanged();
@@ -176,30 +174,34 @@ namespace Synctory.Editor {
 
             BuildTimeControls();
             BuildLocations();
-            Synctory.Clock.SynctoryTime = TimeSpan.FromSeconds(_ScrubVal);
-        }
 
-        private bool TexturesMissing() {
-            return TimeStyle.normal.background == null;
+            UpdateClockOnScrub();
         }
 
         private void BuildTimeControls() {
             GUILayout.Label ("Time Controls", EditorStyles.boldLabel);
             _TimeRect = EditorGUILayout.BeginHorizontal(TimeStyle);
                 EditorGUILayout.BeginHorizontal(TimeControlsStyle);
-                    if (GUILayout.Button(">", ButtonStyle)) {
-                        OnPlay();
-                    }
-                    if (GUILayout.Button(">|", ButtonStyle)) {
+                    if (GUILayout.Button("|<", ButtonStyle)) {
                         OnStop();
+                    }
+                    if (Synctory.Clock.IsPlaying()) {
+                        if (GUILayout.Button("||", ButtonStyle)) {
+                            OnPause();
+                        }
+                    } else {
+                        if (GUILayout.Button(">", ButtonStyle)) {
+                            OnPlay();
+                        }
                     }
                 EditorGUILayout.EndHorizontal();
 
                 EditorGUILayout.BeginHorizontal(TimeScrubStyle);
-                    _ScrubVal = GUILayout.HorizontalSlider(_ScrubVal, 0f, (float) SynctoryHelpers.GetLastTimestamp().TotalSeconds);
+
+                    _ScrubVal = GUILayout.HorizontalSlider(Synctory.Clock.TotalSeconds, 0f, (float) SynctoryHelpers.GetLastTimestamp().TotalSeconds);
                 EditorGUILayout.EndHorizontal();
 
-                GUILayout.Label(SynctoryHelpers.GetTimeStringFromSeconds(_ScrubVal), ScrubLabelStyle);
+                GUILayout.Label(SynctoryHelpers.GetTimeStringFromSeconds(Synctory.Clock.TotalSeconds), ScrubLabelStyle);
             EditorGUILayout.EndHorizontal();
         }
 
@@ -233,6 +235,17 @@ namespace Synctory.Editor {
             EditorGUILayout.EndVertical();
         }
 
+        private void UpdateClockOnScrub() {
+            if (_ScrubVal != Synctory.Clock.TotalSeconds) {
+                Synctory.Clock.SynctoryTime = TimeSpan.FromSeconds(_ScrubVal);
+            }
+        }
+
+        private bool TexturesMissing() {
+            return TimeStyle.normal.background == null;
+        }
+
+
         private void CheckLocationHasScroller(int key) {
             if (!_LocationScrollLocations.ContainsKey(key)) {
                 _LocationScrollLocations.Add(key, Vector2.zero);
@@ -240,12 +253,16 @@ namespace Synctory.Editor {
         }
 
         private void OnPlay() {
-            Debug.Log("> pressed");
-            ResetAllStyles();
+            Synctory.Clock.Play();
+        }
+
+        private void OnPause() {
+            Synctory.Clock.Pause();
         }
 
         private void OnStop() {
-            Debug.Log(">| pressed");
+            Synctory.Clock.Pause();
+            Synctory.Clock.Reset();
         }
 
         private void ResetAllStyles() {
