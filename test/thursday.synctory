@@ -25,11 +25,11 @@
         },
         {
             "key": 1,
-            "stamp": "[01:23:23] Step 1"
+            "stamp": "[01:23] Step 1"
         },
         {
             "key": 2,
-            "stamp": "[02:23:23] Step 2"
+            "stamp": "[02:23] Step 2"
         },
         {
             "key": 3,
@@ -37,7 +37,7 @@
         },
         {
             "key": 4,
-            "stamp": "[04:00:00] End"
+            "stamp": "[04:00] End"
         }
     ],
     "title": "Thursday (temp)",
@@ -45,14 +45,14 @@
         {
             "active": true,
             "entities": [
-                "PIN"
+                "TIM"
             ],
             "key": 0,
             "location": "0",
             "steps": [
                 0
             ],
-            "text": "PIN\nWe have no choice but to trust him, and then eat shit when it fucks with our beautiful standards.\n\nPIN waits for a moment with chin pointing skyward.\n\nPIN\nUnless we have a good argument, and like I said all we have are complaints."
+            "text": "TIM\nWe have no choice but to trust him, and then eat shit when it fucks with our beautiful standards.\n\nTIM waits for a moment with chin pointing skyward.\n\nTIM\nUnless we have a good argument, and like I said all we have are complaints."
         },
         {
             "active": true,
@@ -65,20 +65,21 @@
             "steps": [
                 0
             ],
-            "text": "JOHN\nThey're in a meeting. God knows when they'll be done. Can I get you something in the meantime.\n\nALICE\nJust a water please. Jeff said he'd be here soon.\n\nJOHN\nYes, he told me. Let me just check with Pin."
+            "text": "JOHN\nThey're in a meeting. God knows when they'll be done. Can I get you something in the meantime.\n\nALICE\nJust a water please. Jeff said he'd be here soon.\n\nJOHN\nYes, he told me. Let me just check with Tim."
         },
         {
             "active": true,
             "entities": [
                 "JEFF",
-                "SECURITY GUARD"
+                "SECURITY GUARD",
+                "CHRIS"
             ],
             "key": 93,
             "location": 2,
             "steps": [
                 0
             ],
-            "text": "JEFF is walking up to the door. The door is locked. The SECURITY GUARD ignores him."
+            "text": "JEFF is walking up to the door. The door is locked. The SECURITY GUARD ignores him.\n\nCHRIS is trying to find the building."
         },
         {
             "active": true,
@@ -107,16 +108,15 @@
         {
             "active": true,
             "entities": [
-                "SHOULD",
                 "JOHN",
-                "PIN"
+                "TIM"
             ],
             "key": 1,
             "location": "0",
             "steps": [
                 1
             ],
-            "text": "JOHN enters.\n\nPIN\n(continuing) The guy who designed the whole system SHOULD have a better intuition (although 10 does sound random).\n\nJOHN\nOne moment...\n\nPIN\nNot now John.\n\nExit JOHN."
+            "text": "JOHN enters.\n\nTIM\n(continuing) The guy who designed the whole system *should* have a better intuition (although 10 does sound random).\n\nJOHN\nOne moment...\n\nTIM\nNot now John.\n\nExit JOHN."
         },
         {
             "active": true,
@@ -129,19 +129,19 @@
             "steps": [
                 1
             ],
-            "text": "Enter MURRAY.\n\nMURRAY\nHey Jeff! What's up?\n\nJEFF\nCan you call Pin? This guy isn't being helpful.\n\nMURRAY\nSure let me...\n\nPhones Pin."
+            "text": "Enter MURRAY.\n\nMURRAY\nHey Jeff! What's up?\n\nJEFF\nCan you call Tim? This guy isn't being helpful.\n\nMURRAY\nSure let me...\n\nPhones Tim."
         },
         {
             "active": true,
             "entities": [
-                "PIN"
+                "TIM"
             ],
             "key": 92,
             "location": "0",
             "steps": [
                 2
             ],
-            "text": "PIN's phone starts ringing.\n\nPIN\n(Ignoring it) It's a question of trust. We trust you to do your job, and you need to trust others to do theirs."
+            "text": "TIM's phone starts ringing.\n\nTIM\n(Ignoring it) It's a question of trust. We trust you to do your job, and you need to trust others to do theirs."
         },
         {
             "active": true,
@@ -153,7 +153,7 @@
             "steps": [
                 2
             ],
-            "text": "MURRAY waits for Pin to pick up."
+            "text": "MURRAY waits for Tim to pick up."
         },
         {
             "active": true,
@@ -194,7 +194,8 @@
         {
             "active": true,
             "entities": [
-                "OLD CHINESE MAN"
+                "OLD CHINESE MAN",
+                "CHRIS"
             ],
             "key": 99,
             "location": 3,
@@ -203,7 +204,7 @@
                 2,
                 3
             ],
-            "text": "An OLD CHINESE MAN walks up to Murray's bike and starts inspecting it."
+            "text": "An OLD CHINESE MAN walks up to Murray's bike and starts inspecting it.\n\nCHRIS can't find the building, so he gets his bike to go home."
         },
         {
             "active": false,

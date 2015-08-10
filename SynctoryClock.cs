@@ -37,6 +37,10 @@ namespace Synctory {
                 _TimeChanged = true;
             }
 
+            CheckTimeChanged();
+        }
+
+        public void CheckTimeChanged() {
             if (_TimeChanged) {
                 Synctory.UpdateTime(SynctoryTime);
                 _TimeChanged = false;

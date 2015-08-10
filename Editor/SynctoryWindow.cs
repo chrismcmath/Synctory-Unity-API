@@ -160,6 +160,12 @@ namespace Synctory.Editor {
 
         public void OnInspectorUpdate() {
             _ScrubVal = (float) Synctory.Clock.SynctoryTime.TotalSeconds;
+
+            //NOTE: Force an update when not in play mode
+            if (!EditorApplication.isPlaying) {
+                Synctory.Clock.CheckTimeChanged();
+            }
+
             Repaint();
         }
 
