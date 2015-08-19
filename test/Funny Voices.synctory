@@ -1,0 +1,614 @@
+{
+    "author": "martha",
+    "locations": [
+        {
+            "key": 0,
+            "name": "INT. MAGGIE'S ROOM"
+        },
+        {
+            "key": 4,
+            "name": "INT. JOYCE'S ROOM"
+        },
+        {
+            "key": 5,
+            "name": "INT. CORRIDOR"
+        },
+        {
+            "key": 6,
+            "name": "INT. BILL'S ROOM"
+        }
+    ],
+    "steps": [
+        {
+            "key": 0,
+            "stamp": "[00:00]"
+        },
+        {
+            "key": 1,
+            "stamp": "[00:33]"
+        },
+        {
+            "key": 5,
+            "stamp": "[00:40]"
+        },
+        {
+            "key": 6,
+            "stamp": "[00:50]"
+        },
+        {
+            "key": 7,
+            "stamp": "[0:55]"
+        },
+        {
+            "key": 8,
+            "stamp": "[01:15]"
+        },
+        {
+            "key": 9,
+            "stamp": "[01:20]"
+        },
+        {
+            "key": 10,
+            "stamp": "[01:25]"
+        },
+        {
+            "key": 11,
+            "stamp": "[01:40]"
+        },
+        {
+            "key": 13,
+            "stamp": "[01:45]"
+        },
+        {
+            "key": 12,
+            "stamp": "[01:50]"
+        },
+        {
+            "key": 14,
+            "stamp": "[02:00]"
+        },
+        {
+            "key": 15,
+            "stamp": "[02:05]"
+        }
+    ],
+    "title": "Funny Voices",
+    "units": [
+        {
+            "active": true,
+            "entities": [
+                "MAGGIE",
+                "PETER"
+            ],
+            "key": 0,
+            "location": "0",
+            "steps": [
+                0
+            ],
+            "text": "MAGGIE\nThrough these doors, PETER, is the largest room of wind outside of your own head. And between these doors is a crack as wide as my middle finger. Is it any wonder why there is such a draft through the whole building?\n\nPETER\nMa'am, dreadfully sorry, but there's little we can do save replace the doors entirely.\n\nMAGGIE\nAt who's expense? I don't see why I should pay for your error.\n\nPETER\nAll respect ma'am, it was Joyce, not I, who approved the design.\n\nMAGGIE\nWell then for goodness sake, go talk to her!\n"
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 103,
+            "location": 4,
+            "steps": [
+                0
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 105,
+            "location": 5,
+            "steps": [
+                0
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL",
+                "DUSTY RED BOOK"
+            ],
+            "key": 116,
+            "location": 6,
+            "steps": [
+                0
+            ],
+            "text": "BILL is moving a DUSTY RED BOOK from a travel bag onto this table.\n\nBILL\nSo much effort for something so... dusty.\n\nHe starts to flick through it."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 1,
+            "location": "0",
+            "steps": [
+                1
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 104,
+            "location": 4,
+            "steps": [
+                1
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "PETER"
+            ],
+            "key": 106,
+            "location": 5,
+            "steps": [
+                1
+            ],
+            "text": "PETER walks to Joyce's room."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 117,
+            "location": 6,
+            "steps": [
+                1
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "MAGGIE"
+            ],
+            "key": 107,
+            "location": 0,
+            "steps": [
+                5
+            ],
+            "text": "MAGGIE dials the phone."
+        },
+        {
+            "active": true,
+            "entities": [
+                "PETER",
+                "JOYCE"
+            ],
+            "key": 108,
+            "location": 4,
+            "steps": [
+                5
+            ],
+            "text": "PETER\nExcuse me, Joyce?\n\nJOYCE\nWell Peter! Hello hello hello! To what do I owe this pleasure?\n\nPETER\nI came to talk about the...\n\nJOYCE\nHold that thought one moment young man."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 109,
+            "location": 5,
+            "steps": [
+                5
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL"
+            ],
+            "key": 118,
+            "location": 6,
+            "steps": [
+                5
+            ],
+            "text": "When hearing the phone ring, BILL slams the book shut and answers it, startled."
+        },
+        {
+            "active": true,
+            "entities": [
+                "MAGGIE"
+            ],
+            "key": 110,
+            "location": 0,
+            "steps": [
+                6
+            ],
+            "text": "MAGGIE\n(on phone) Bill get yourself over here right now."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 111,
+            "location": 4,
+            "steps": [
+                6
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE"
+            ],
+            "key": 112,
+            "location": 5,
+            "steps": [
+                6
+            ],
+            "text": "JOYCE walks to Bill's room."
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL",
+                "OK"
+            ],
+            "key": 119,
+            "location": 6,
+            "steps": [
+                6
+            ],
+            "text": "BILL picks up the phone.\n\nBILL\n(listening) OK, I'll... "
+        },
+        {
+            "active": true,
+            "entities": [
+                "MAGGIE"
+            ],
+            "key": 113,
+            "location": 0,
+            "steps": [
+                7
+            ],
+            "text": "MAGGIE looks at the phone, irritated."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 114,
+            "location": 4,
+            "steps": [
+                7
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 115,
+            "location": 5,
+            "steps": [
+                7
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE",
+                "BILL"
+            ],
+            "key": 120,
+            "location": 6,
+            "steps": [
+                7
+            ],
+            "text": "BILL hangs up abruptly as he hears JOYCE entering.\n\nJOYCE\n(talking as she enters) Well you wouldn't believe who just came to see me.\n\nBILL\nWho is it my darling?\n\nJOYCE\nIt's Peter, Derek's boy! Just came straight in. I think he's going to ask me about doors.\n\nBILL\nOh, so Maggie's been on again has she? I'll have a word with her.\n\nJOYCE\nYou don't think he knows anything does he?\n\nBILL\nWe must assume he doesn't. Now get back to him before he gets suspicious. "
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 121,
+            "location": 0,
+            "steps": [
+                8
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 122,
+            "location": 4,
+            "steps": [
+                8
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE"
+            ],
+            "key": 123,
+            "location": 5,
+            "steps": [
+                8
+            ],
+            "text": "JOYCE walks back to her room"
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 124,
+            "location": 6,
+            "steps": [
+                8
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 125,
+            "location": 0,
+            "steps": [
+                9
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL"
+            ],
+            "key": 127,
+            "location": 5,
+            "steps": [
+                9
+            ],
+            "text": "BILL, following Joyce out, walks to Maggie's room."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 128,
+            "location": 6,
+            "steps": [
+                9
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 131,
+            "location": 5,
+            "steps": [
+                10
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 132,
+            "location": 6,
+            "steps": [
+                10
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE",
+                "PETER"
+            ],
+            "key": 126,
+            "location": 4,
+            "steps": [
+                9,
+                10
+            ],
+            "text": "JOYCE\nPeter, Peter, Peter. Oh Peter.\n\nPETER\nMa'am.\n\nPETER clocks Bill walking past in the corridor.\n\nJOYCE\nI swear you get bigger every day I see you! Incredible, isn't it!\n\nPETER\nMa'am I've just come from Ms. Hershore.\n\nJOYCE\nOh, no doubt she's blustering on about something or other.\n\nPETER\nYes ma'am. Sorry please excuse me one moment..."
+        },
+        {
+            "active": true,
+            "entities": [
+                "PETER"
+            ],
+            "key": 135,
+            "location": 5,
+            "steps": [
+                11
+            ],
+            "text": "PETER walks into the corridor"
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 136,
+            "location": 6,
+            "steps": [
+                11
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 134,
+            "location": 4,
+            "steps": [
+                11,
+                13
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL",
+                "MAGGIE"
+            ],
+            "key": 129,
+            "location": 0,
+            "steps": [
+                10,
+                11,
+                13
+            ],
+            "text": "BILL\nMaggie!\n\nMAGGIE\nOh don't smooth talk me Bill. I had to send Peter on a ridiculous errand to give me five minutes peace.\n\nBILL\n(shutting the door) That bad? Yes, sorry about before, Joyce walked in on me.\n\nMAGGIE\nDid you bring it?\n\nBILL\nNo, I... you want it now?\n\nMAGGIE\nWhere is it Bill?\n\nBILL\nIt's, eugh, on my desk...\n\nMAGGIE\nJust on your desk. On your desk. In your open office.\n\nBILL\nYes I better...\n\nMAGGIE\nYes you better!"
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE"
+            ],
+            "key": 142,
+            "location": 5,
+            "steps": [
+                13
+            ],
+            "text": "JOYCE follows him out"
+        },
+        {
+            "active": true,
+            "entities": [
+                "PETER",
+                "RED DUSTY BOOK"
+            ],
+            "key": 147,
+            "location": 6,
+            "steps": [
+                13
+            ],
+            "text": "PETER enters and picks up the RED DUSTY BOOK from the desk. A grin springs to his face."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 138,
+            "location": 0,
+            "steps": [
+                12
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 139,
+            "location": 4,
+            "steps": [
+                12
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "BILL"
+            ],
+            "key": 140,
+            "location": 5,
+            "steps": [
+                12
+            ],
+            "text": "BILL storms down the corridor."
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE",
+                "PETER"
+            ],
+            "key": 141,
+            "location": 6,
+            "steps": [
+                12
+            ],
+            "text": "JOYCE\n(entering) Peter! Peter what have you got there? Peter?\n\nPETER turns slowly, and disappears."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 143,
+            "location": 0,
+            "steps": [
+                14
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 144,
+            "location": 4,
+            "steps": [
+                14
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 145,
+            "location": 5,
+            "steps": [
+                14
+            ],
+            "text": ""
+        },
+        {
+            "active": true,
+            "entities": [
+                "JOYCE",
+                "BILL"
+            ],
+            "key": 146,
+            "location": 6,
+            "steps": [
+                14
+            ],
+            "text": "JOYCE\nPeter!!!\n\nBILL\n(entering) Oh shit."
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 148,
+            "location": 0,
+            "steps": [
+                15
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 149,
+            "location": 4,
+            "steps": [
+                15
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 150,
+            "location": 5,
+            "steps": [
+                15
+            ],
+            "text": ""
+        },
+        {
+            "active": false,
+            "entities": [],
+            "key": 151,
+            "location": 6,
+            "steps": [
+                15
+            ],
+            "text": ""
+        }
+    ]
+}

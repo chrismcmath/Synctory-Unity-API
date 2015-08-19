@@ -36,9 +36,10 @@ namespace Synctory.Objects {
 
         //NOTE: Units MUST be in order
         ////TODO: also need to check steps are all sequetial (in timestamps) too
-        public void UpdateTime(TimeSpan time) {
+        public SynctoryFrameInfo UpdateTime(TimeSpan time) {
             if (CachedUnits.Count == 0) {
-                return;
+                Debug.LogError("[Location] No cached units in location");
+                return null;
             }
 
             TimeSpan unitEnd = TimeSpan.MaxValue;
@@ -55,10 +56,14 @@ namespace Synctory.Objects {
 
             CurrentUnit = candidateUnit;
 
-            float totalTicks = unitEnd.Ticks - CurrentUnit.StartTime.Ticks;
-            float ticksSinceStart = time.Ticks - CurrentUnit.StartTime.Ticks;
+            SynctoryFrameInfo info = new SynctoryFrameInfo();
+            info.Unit = CurrentUnit;
+            info.Ticks = time.Ticks - CurrentUnit.StartTime.Ticks;
+            info.TotalTicks = unitEnd.Ticks - CurrentUnit.StartTime.Ticks;
 
-            CurrentUnitProgression = ticksSinceStart / totalTicks;
+            CurrentUnitProgression = info.UnitProgression();
+
+            return info;
         }
     }
 }
