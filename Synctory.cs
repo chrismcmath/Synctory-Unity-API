@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine;
 
 using Synctory.Objects;
 using Synctory.Roots;
+using Synctory.Routers;
 using Synctory.Utils;
 
 namespace Synctory {
@@ -86,9 +88,45 @@ namespace Synctory {
             }
         }
 
-        public static void UpdateTime(TimeSpan time) {
+        private static Dictionary<string, SynctoryRouter> _EntityRouters = new Dictionary<string, SynctoryRouter>();
+        private static Dictionary<int, SynctoryRouter> _LocationRouters = new Dictionary<int, SynctoryRouter>();
+
+        public static void RegisterRouter(string entityName, SynctoryRouter router) {
+            if (!_EntityRouters.ContainsKey(entityName)) {
+                _EntityRouters.Add(entityName, router);
+            } else {
+                Debug.LogError("[Synctory] An EntityRouter has already been registered with the name " + entityName);
+            }
+        }
+
+        public static void RegisterRouter(int locationKey, SynctoryRouter router) {
+            if (!_LocationRouters.ContainsKey(locationKey)) {
+                _LocationRouters.Add(locationKey, router);
+            } else {
+                Debug.LogError("[Synctory] An LocationRouter has already been registered with the name " + locationKey);
+            }
+        }
+
+        public static void TimeUpdated(TimeSpan time) {
             foreach (Location location in SynctoryHelpers.GetAllLocations()) {
-                location.UpdateTime(time);
+                SynctoryFrameInfo info = location.UpdateTime(time);
+
+                UpdateLocationRouter(location.Key, info);
+                UpdateEntityRouters(location.CurrentUnit.Entities, info);
+            }
+        }
+
+        private static void UpdateLocationRouter(int locationKey, SynctoryFrameInfo info) {
+            if (_LocationRouters.ContainsKey(locationKey)) {
+                _LocationRouters[locationKey].TimeUpdated(info);
+            }
+        }
+
+        private static void UpdateEntityRouters(List<Entity> entities, SynctoryFrameInfo info) {
+            foreach (Entity entity in entities) {
+                if (_EntityRouters.ContainsKey(entity.Name)) {
+                    _EntityRouters[entity.Name].TimeUpdated(info);
+                }
             }
         }
 
