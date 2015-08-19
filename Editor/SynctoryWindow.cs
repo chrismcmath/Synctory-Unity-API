@@ -222,7 +222,7 @@ namespace Synctory.Editor {
 
                 GUIStyle locationHeaderStyle = LocationHeaderStyle;
                 locationHeaderStyle.fixedWidth = location.CurrentUnitProgression * locationRect.width;
-                GUILayout.Label(location.Name, locationHeaderStyle);
+                GUILayout.Label(string.Format("({0}) {1}", location.Key, location.Name), locationHeaderStyle);
 
                 CheckLocationHasScroller(location.Key);
                 _LocationScrollLocations[location.Key] = GUILayout.BeginScrollView(_LocationScrollLocations[location.Key], false, true);
