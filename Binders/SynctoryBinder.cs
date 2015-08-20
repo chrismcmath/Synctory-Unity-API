@@ -26,6 +26,7 @@ namespace Synctory.Binders {
                 if (router != null) {
                     return router;
                 }
+                t = t.parent;
             }
             return null;
         }
