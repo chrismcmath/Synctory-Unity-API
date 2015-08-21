@@ -53,6 +53,10 @@ namespace Synctory.Utils {
             }
         }
 
+        public static string FormatTimeSpan(TimeSpan span) {
+            return string.Format("{0:00}:{1:00}", span.Minutes, span.Seconds);
+        }
+
         //NOTE: Make timestamp confirm to hh:mm:ss format
         private static string FormatTimestamp(string timestamp) {
             while (timestamp.Count(c => c == DENOMINATION_DIVIDER) < 2) {
