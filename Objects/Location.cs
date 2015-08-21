@@ -15,23 +15,30 @@ namespace Synctory.Objects {
 
         [SerializeField]
         private List<Unit> _CachedUnits = new List<Unit>();
-        public  List<Unit> CachedUnits {
+        public List<Unit> CachedUnits {
             get { return _CachedUnits; }
             set { _CachedUnits = value; }
         }
 
         [SerializeField]
         private Unit _CurrentUnit = null;
-        public  Unit CurrentUnit {
+        public Unit CurrentUnit {
             get { return _CurrentUnit; }
             set { _CurrentUnit = value; }
         }
 
         [SerializeField]
         private float _CurrentUnitProgression = 0f;
-        public  float CurrentUnitProgression {
+        public float CurrentUnitProgression {
             get { return _CurrentUnitProgression; }
             set { _CurrentUnitProgression = value; }
+        }
+
+        [SerializeField]
+        private SynctoryFrameInfo _LastFrameInfo;
+        public SynctoryFrameInfo LastFrameInfo {
+            get { return _LastFrameInfo; }
+            set { _LastFrameInfo = value; }
         }
 
         //NOTE: Units MUST be in order
@@ -60,10 +67,11 @@ namespace Synctory.Objects {
             info.Unit = CurrentUnit;
             info.Ticks = time.Ticks - CurrentUnit.StartTime.Ticks;
             info.TotalTicks = unitEnd.Ticks - CurrentUnit.StartTime.Ticks;
+            LastFrameInfo = info;
 
-            CurrentUnitProgression = info.UnitProgression();
+            CurrentUnitProgression = LastFrameInfo.UnitProgression();
 
-            return info;
+            return LastFrameInfo;
         }
     }
 }

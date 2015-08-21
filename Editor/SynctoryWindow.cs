@@ -222,7 +222,18 @@ namespace Synctory.Editor {
 
                 GUIStyle locationHeaderStyle = LocationHeaderStyle;
                 locationHeaderStyle.fixedWidth = location.CurrentUnitProgression * locationRect.width;
-                GUILayout.Label(string.Format("({0}) {1}", location.Key, location.Name), locationHeaderStyle);
+                GUILayout.Label(string.Format("{0} - {1}", location.Key, location.Name), locationHeaderStyle);
+                if (location.LastFrameInfo != null) {
+                    TimeSpan elapsed = TimeSpan.FromTicks((long) location.LastFrameInfo.Ticks);
+                    TimeSpan total = TimeSpan.FromTicks((long) location.LastFrameInfo.TotalTicks);
+                    GUILayout.Label(string.Format("Unit {0} ({1}/{2})",
+                                location.CurrentUnit.Key,
+                                StampUtils.FormatTimeSpan(elapsed),
+                                StampUtils.FormatTimeSpan(total)),
+                            locationHeaderStyle);
+                } else {
+                    GUILayout.Label("No Unit info", locationHeaderStyle);
+                }
 
                 CheckLocationHasScroller(location.Key);
                 _LocationScrollLocations[location.Key] = GUILayout.BeginScrollView(_LocationScrollLocations[location.Key], false, true);

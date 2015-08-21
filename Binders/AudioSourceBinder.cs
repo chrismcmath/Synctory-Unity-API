@@ -21,6 +21,12 @@ namespace Synctory.Binders {
             }
 
             public override void UpdateInfo(SynctoryFrameInfo info) {
+                //TODO: This is doing nout, might be a Clock state bug
+                if (!Synctory.Clock.IsPlaying()) {
+                    _AudioSource.Stop();
+                    return;
+                }
+
                 if (info.Unit.Key != _CurrentUnitKey) {
                     ChangeAudioClip(info.Unit.Key);
                 }
@@ -55,7 +61,7 @@ namespace Synctory.Binders {
             private void UpdatePitch(SynctoryFrameInfo info) {
                 float syncSeconds= (float) TimeSpan.FromTicks((long) info.Ticks).TotalSeconds;
                 float playbackDelta = _AudioSource.time - syncSeconds;
-                Debug.Log("[AUDIO] Playback delta: " + playbackDelta);
+                //Debug.Log("[AUDIO] Playback delta: " + playbackDelta);
 
                 float deltaTime = Time.smoothDeltaTime;
                 float targetPitch = (deltaTime - playbackDelta) / deltaTime;
