@@ -5,8 +5,8 @@ using UnityEngine;
 namespace Synctory.Binders {
     [RequireComponent (typeof (AudioSource))]
         public class AudioSourceBinder : SynctoryBinder {
-            public const float MIN_PITCH = 0.9f;
-            public const float MAX_PITCH = 1.1f;
+            public const float MIN_PITCH = 0.99f;
+            public const float MAX_PITCH = 1.01f;
             //TODO: make this a function of the delta
             public const float PITCH_SEEK_DAMPENER = 10f;
             public const float SKIP_DELTA_THRESHOLD = 1f;
@@ -61,13 +61,14 @@ namespace Synctory.Binders {
             private void UpdatePitch(SynctoryFrameInfo info) {
                 float syncSeconds= (float) TimeSpan.FromTicks((long) info.Ticks).TotalSeconds;
                 float playbackDelta = _AudioSource.time - syncSeconds;
-                //Debug.Log("[AUDIO] Playback delta: " + playbackDelta);
 
                 float deltaTime = Time.smoothDeltaTime;
                 float targetPitch = (deltaTime - playbackDelta) / deltaTime;
 
                 _TargetPitch = Mathf.Min(MAX_PITCH, Mathf.Max(MIN_PITCH, targetPitch));
                 _AudioSource.pitch += (_TargetPitch - _AudioSource.pitch) / PITCH_SEEK_DAMPENER;
+
+                Debug.Log("[AUDIO] Playback delta: " + playbackDelta + " pitch: " + _AudioSource.pitch);
             }
 
             private void ChangeAudioClip(int unitKey) {
