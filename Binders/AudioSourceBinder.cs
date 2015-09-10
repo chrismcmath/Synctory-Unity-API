@@ -5,16 +5,20 @@ using UnityEngine;
 namespace Synctory.Binders {
     [RequireComponent (typeof (AudioSource))]
         public class AudioSourceBinder : SynctoryBinder {
+            public enum Behaviour {CONTINUE=0, STOP};
+
             public const float MIN_PITCH = 0.99f;
             public const float MAX_PITCH = 1.01f;
+
             //TODO: make this a function of the delta
             public const float PITCH_SEEK_DAMPENER = 10f;
             public const float SKIP_DELTA_THRESHOLD = 1f;
 
-            private AudioSource _AudioSource;
+            public Behaviour OnEnd = Behaviour.CONTINUE;
 
-            private int _CurrentUnitKey = -1;
             private float _TargetPitch;
+            private int _CurrentUnitKey = -1;
+            private AudioSource _AudioSource;
 
             public void Start() {
                 _AudioSource = GetComponent<AudioSource>();
@@ -27,27 +31,36 @@ namespace Synctory.Binders {
                     return;
                 }
 
-                if (info.Unit.Key != _CurrentUnitKey) {
-                    ChangeAudioClip(info.Unit.Key);
-                }
-
-                if (_AudioSource.clip == null) {
+                if (!TryUpdateClip(info.Unit.Key)) {
                     return;
                 }
 
                 float seconds = (float) TimeSpan.FromTicks((long) info.Ticks).TotalSeconds;
                 if (seconds > _AudioSource.clip.length) {
-                    _AudioSource.Stop();
+                    OnClipEnd();
                 } else {
+                    PlayClip(info);
+                }
+            }
 
-                    UpdateTime(info);
-                    UpdatePitch(info);
+            private void PlayClip(SynctoryFrameInfo info) {
+                UpdateTime(info);
+                UpdatePitch(info);
 
-                    //TODO: skip time if delta too large
-                    //_AudioSource.time = (float) TimeSpan.FromTicks((long) info.Ticks).TotalSeconds;
-                    if (!_AudioSource.isPlaying) {
-                        _AudioSource.Play();
-                    }
+                //TODO: skip time if delta too large
+                //_AudioSource.time = (float) TimeSpan.FromTicks((long) info.Ticks).TotalSeconds;
+                if (!_AudioSource.isPlaying) {
+                    _AudioSource.Play();
+                }
+            }
+
+            private void OnClipEnd() {
+                switch (OnEnd) {
+                    case Behaviour.CONTINUE:
+                        break;
+                    case Behaviour.STOP:
+                        _AudioSource.Stop();
+                        break;
                 }
             }
 
@@ -68,7 +81,15 @@ namespace Synctory.Binders {
                 _TargetPitch = Mathf.Min(MAX_PITCH, Mathf.Max(MIN_PITCH, targetPitch));
                 _AudioSource.pitch += (_TargetPitch - _AudioSource.pitch) / PITCH_SEEK_DAMPENER;
 
-                Debug.Log("[AUDIO] Playback delta: " + playbackDelta + " pitch: " + _AudioSource.pitch);
+                //Debug.Log("[AUDIO] Playback delta: " + playbackDelta + " pitch: " + _AudioSource.pitch);
+            }
+
+            private bool TryUpdateClip(int key) {
+                if (key != _CurrentUnitKey) {
+                    ChangeAudioClip(key);
+                }
+
+                return _AudioSource.clip != null;
             }
 
             private void ChangeAudioClip(int unitKey) {
