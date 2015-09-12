@@ -69,7 +69,7 @@ namespace Synctory.Objects {
             info.TotalTicks = unitEnd.Ticks - CurrentUnit.StartTime.Ticks;
             LastFrameInfo = info;
 
-            CurrentUnitProgression = LastFrameInfo.UnitProgression();
+            CurrentUnitProgression = LastFrameInfo.UnitProgression;
 
             return LastFrameInfo;
         }

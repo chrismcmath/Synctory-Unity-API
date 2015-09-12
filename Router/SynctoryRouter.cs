@@ -23,6 +23,10 @@ namespace Synctory.Routers {
         }
 
         protected void UpdateBinders(SynctoryFrameInfo info) {
+            if (!Application.isPlaying) {
+                return;
+            }
+
             foreach (SynctoryBinder binder in _Binders) {
                 binder.UpdateInfo(info);
             }

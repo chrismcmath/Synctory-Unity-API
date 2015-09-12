@@ -57,6 +57,14 @@ namespace Synctory.Utils {
             return string.Format("{0:00}:{1:00}", span.Minutes, span.Seconds);
         }
 
+        public static float InfoToSeconds(SynctoryFrameInfo info) {
+            return TicksToSeconds(info.Ticks);
+        }
+
+        public static float TicksToSeconds(long ticks) {
+            return (float) new TimeSpan(ticks).TotalSeconds;
+        }
+
         //NOTE: Make timestamp confirm to hh:mm:ss format
         private static string FormatTimestamp(string timestamp) {
             while (timestamp.Count(c => c == DENOMINATION_DIVIDER) < 2) {

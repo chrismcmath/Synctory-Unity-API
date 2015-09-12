@@ -25,7 +25,6 @@ namespace Synctory.Binders {
             }
 
             public override void UpdateInfo(SynctoryFrameInfo info) {
-                //TODO: This is doing nout, might be a Clock state bug
                 if (!Synctory.Clock.IsPlaying()) {
                     _AudioSource.Stop();
                     return;

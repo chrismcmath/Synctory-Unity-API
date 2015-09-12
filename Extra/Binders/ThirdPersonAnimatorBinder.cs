@@ -18,7 +18,6 @@ namespace Synctory.Extra.Binders {
 
             public void Start() {
                 _Animator = GetComponent<Animator>();
-                Debug.Log("got binder: " + _Animator);
             }
 
             public void Update() {
@@ -37,9 +36,12 @@ namespace Synctory.Extra.Binders {
 
                 _Animator.SetFloat(PARAM_FORWARD, forward);
                 //_Animator.SetFloat(PARAM_TURN, turn);
-                transform.rotation = Quaternion.LookRotation(new Vector3(positionDelta.x, 0f, positionDelta.z));
+                Vector3 rotationViewVector = new Vector3(positionDelta.x, 0f, positionDelta.z);
+                if (rotationViewVector != Vector3.zero) {
+                    transform.rotation = Quaternion.LookRotation(rotationViewVector);
+                }
 
-                Debug.Log("[3RD PERSON ANIMATOR] forward: " + forward + ", turn: " + Quaternion.LookRotation(positionDelta));
+                //Debug.Log("[3RD PERSON ANIMATOR] forward: " + forward + ", turn: " + Quaternion.LookRotation(positionDelta));
             }
         }
 }

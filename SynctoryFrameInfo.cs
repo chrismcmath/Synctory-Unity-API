@@ -6,11 +6,13 @@ using Synctory.Objects;
 namespace Synctory {
     public class SynctoryFrameInfo {
         public Unit Unit;
-        public float Ticks;
-        public float TotalTicks;
+        public long Ticks;
+        public long TotalTicks;
 
-        public float UnitProgression() {
-            return Ticks / TotalTicks;
+        public float UnitProgression  {
+            get {
+                return (float) Ticks / (float) TotalTicks;
+            }
         }
     }
 }
