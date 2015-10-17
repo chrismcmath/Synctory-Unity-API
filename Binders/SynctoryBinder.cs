@@ -5,7 +5,7 @@ using Synctory.Routers;
 
 namespace Synctory.Binders {
     public abstract class SynctoryBinder : MonoBehaviour {
-        public void Awake() {
+        public virtual void Awake() {
             RegisterWithRouter();
         }
 

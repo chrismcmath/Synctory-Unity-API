@@ -18,6 +18,12 @@ namespace Synctory.Routers {
             }
         }
 
+        public void DeregisterBinder(SynctoryBinder binder) {
+            if (_Binders.Contains(binder)) {
+                _Binders.Remove(binder);
+            }
+        }
+
         public void TimeUpdated(SynctoryFrameInfo info) {
             UpdateBinders(info);
         }

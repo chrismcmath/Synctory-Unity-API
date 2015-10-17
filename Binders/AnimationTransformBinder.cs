@@ -41,6 +41,8 @@ namespace Synctory.Binders {
             }
 
             public override void UpdateInfo(SynctoryFrameInfo info) {
+                if (!enabled) return;
+
                 string clipName = string.Format("{0}", info.Unit.Key);
                 switch (BakeMode) {
                     case BakeOption.NONE:
@@ -92,7 +94,6 @@ namespace Synctory.Binders {
                         _PrevTime, _PrevZPosition,
                         currentTime, transform.localPosition.z);
 
-                Debug.Log("prev time " + _PrevTime + " current " + currentTime);
                 _PrevXPosition = transform.localPosition.x;
                 _PrevZPosition = transform.localPosition.z;
                 _PrevTime = currentTime;
