@@ -4,7 +4,10 @@ using System.Collections.Generic;
 
 namespace Synctory.Utils {
     public static class DebugUtils {
-        public static void DrawBounds(Bounds bounds, Vector3 offset = Vector3.zero) {
+        public static void DrawBounds(Bounds bounds) {
+            DrawBounds(bounds, Vector3.zero);
+        }
+        public static void DrawBounds(Bounds bounds, Vector3 offset) {
             bounds.center += offset;
 
             DrawLine(bounds.min, new Vector2(bounds.min.x, bounds.max.y));
