@@ -2,13 +2,16 @@
 A plugin to allow the usage of Synctory scripts in Unity
 
 ##Setup
-After cloning install the dependancies by running these two commands from the root
+Add as a submodule to your Unity project
 
 ```
-git submodule init
+git add submodule <repo_url> <path/to/desired/folder>
 ```
+
+After cloning install the dependancies by running 
+
 ```
-git submodule update
+git submodule update --init --recursive
 ```
 
 
